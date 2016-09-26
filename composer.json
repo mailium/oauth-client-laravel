@@ -1,0 +1,38 @@
+{
+    "name": "mailium/oauth-client-laravel",
+    "description": "Mailium Oauth Client Library Laravel Integration Package",
+    "keywords": ["mailium", "api", "oauth", "oauth2", "laravel"],
+    "type": "library",
+    "license": "Apache Version 2.0",
+    "authors": [
+        {
+            "name": "Mailium",
+            "homepage": "https://github.com/mailium/oauth-client-laravel/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/mailium/oauth-client-laravel/issues",
+        "source": "https://github.com/mailium/oauth-client-laravel"
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/database": "5.1.* || 5.2.*",
+        "mailium/oauth-client-php" :"1.0.20",
+        "mailium/api-wrapper-php": "1.0.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0|~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MailiumOauthClient\\MailiumOauthClientLaravel\\": "src/MailiumOauthClient/MailiumOauthClientLaravel"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
