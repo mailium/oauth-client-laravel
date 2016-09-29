@@ -6,7 +6,6 @@
 
 Add Mailium Service Provider to providers array in config/app.php
 
-
 ```
 MailiumOauthClient\MailiumOauthClientLaravel\MailiumOauthClientServiceProvider::class,
 ```
@@ -15,14 +14,11 @@ MailiumOauthClient\MailiumOauthClientLaravel\MailiumOauthClientServiceProvider::
 
 Add Mailium Facade to aliases array in config/app.php
 
-
 ```
 'MailiumOauthClient' => MailiumOauthClient\MailiumOauthClientLaravel\MailiumOauthClientFacade::class,
 ```
 
-
 ### Middleware
-
 
 Add Mailium Middleware to the middleware group array in app/Http/Kernel.php
 
@@ -50,16 +46,6 @@ Example:
 php artisan vendor:publish
 ```
 
-### Publishing Only Configuration
-```
-artisan vendor:publish --provider="Vendor\Providers\PackageServiceProvider" --tag="config"
-```
-
-### Publishing Only Database Migrations
-```
-artisan vendor:publish --provider="Vendor\Providers\PackageServiceProvider" --tag="migrations"
-```
-
 ## Running Migrations
 
 ```
@@ -69,3 +55,40 @@ php artisan migrate
 
 Configure your client_id, client_secret, required scopes and app type on config/mailium-oauth.php file.
 
+## Using the client on controllers
+
+Oauth client middleware adds four attributes to the incoming requests
+
+- mailium_app_accid             (account identifier)
+- mailium_app_user              (mailium app user object)
+- mailium_app_just_installed    (boolean variable defines if the app is just installed and the request is first one )
+- mailium_api_client            (API wrapper)
+
+### Getting accid (Account Identifier)
+
+```
+      $this->accId = $request->attributes->get('mailium_app_accid');
+```
+
+### Getting user (mailium app user)
+
+```
+      $this->mailiumAppUser = $request->attributes->get('mailium_app_user');
+```
+
+### Indicator of first request to the app
+
+```
+      $this->justInstalled = $request->attributes->get('mailium_app_just_installed');
+```
+
+### Getting API client
+
+```
+      $this->apiClient = $request->attributes->get('mailium_api_client');
+```
+
+### Running API commands on controller
+```
+      $this->apiClient->run('List.GetList',array());
+```
