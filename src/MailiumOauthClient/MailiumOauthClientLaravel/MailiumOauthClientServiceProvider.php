@@ -48,6 +48,7 @@ class MailiumOauthClientServiceProvider extends ServiceProvider
             $oauthClient->setScopes(config('mailium-oauth.required_scopes'));
             $oauthClient->setTokenStoreCallbackFunction('MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser::saveOauthToken');
             $oauthClient->setRedirectUri(config('mailium-oauth.redirect_uri'));
+            $oauthClient->setAppType(config('mailium-oauth.app_type'));
 
             return $oauthClient;
         });
