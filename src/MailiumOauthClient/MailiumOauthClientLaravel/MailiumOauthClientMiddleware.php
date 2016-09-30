@@ -9,7 +9,7 @@ use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser;
 use Mailium\API\MailiumAPI3;
 class MailiumOauthClientMiddleware
 {
-    const VERSION = '1.0.26';
+    const VERSION = '1.0.30';
     /**
      * @var MailiumOauthClient MailiumOauthClient\MailiumOauthClient
      */
