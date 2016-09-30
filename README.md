@@ -1,5 +1,8 @@
 # Mailium Oauth Client for Laravel Framework
 
+[![Latest Stable Version](https://poser.pugx.org/mailium/oauth-client-laravel/v/stable.svg)](https://packagist.org/packages/mailium/oauth-client-laravel) [![Monthly Downloads](https://poser.pugx.org/mailium/oauth-client-laravel/d/monthly.png)](https://packagist.org/packages/mailium/oauth-client-laravel) [![License](https://poser.pugx.org/mailium/oauth-client-laravel/license.svg)](https://packagist.org/packages/mailium/oauth-client-laravel) ![Build Status](https://travis-ci.org/mailium/oauth-client-laravel.svg?branch=master)
+
+
 ## Installation & Configuration
 
 ### Service Provider
