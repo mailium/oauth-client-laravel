@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 use MailiumOauthClient\MailiumOauthClient;
-use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser;
 
 
 class MailiumOauthClientServiceProvider extends ServiceProvider
@@ -46,7 +45,7 @@ class MailiumOauthClientServiceProvider extends ServiceProvider
             $oauthClient->setClientID(config('mailium-oauth.client_id'));
             $oauthClient->setClientSecret(config('mailium-oauth.client_secret'));
             $oauthClient->setScopes(config('mailium-oauth.required_scopes'));
-            $oauthClient->setTokenStoreCallbackFunction('MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser::saveOauthToken');
+            $oauthClient->setTokenStoreCallbackFunction(config('mailium-oauth.model') . '::saveOauthToken');
             $oauthClient->setRedirectUri(config('mailium-oauth.redirect_uri'));
             $oauthClient->setAppType(config('mailium-oauth.app_type'));
 
