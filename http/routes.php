@@ -15,11 +15,13 @@ Route::post('/uninstall', ['middleware' => [
     /** @var MailiumAppAuthenticatable $user */
     $user = $request->attributes->get('mailium_app_user');
 
-    // Delete user from database;
-    $user->delete();
-
     // Fire uninstall event
-    Event::fire(new MailiumAppUninstallEvent($user->accid));
+    Event::fire(new MailiumAppUninstallEvent($user));
+
+    // Delete user from database;
+    if ($user->exists) {
+        $user->delete();
+    }
 
     return response()->json([], 200);
 }])->name('mailium_app_uninstall');

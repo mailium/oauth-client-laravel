@@ -5,13 +5,13 @@ namespace MailiumOauthClient\MailiumOauthClientLaravel;
 class MailiumAppUninstallEvent
 {
     /**
-     * @var string ID of the account that the app is uninstalled from
+     * @var MailiumAppAuthenticatable the account that the app is uninstalled from
      */
     public $account;
 
     /**
      * MailiumAppUninstallEvent constructor.
-     * @param string $account
+     * @param MailiumAppAuthenticatable $account
      */
     public function __construct($account)
     {
