@@ -36,4 +36,12 @@ return [
     |
     */
     'app_type' => env('MAILIUM_APP_TYPE', 'embedded'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent model
+    |--------------------------------------------------------------------------
+    |
+    */
+    'model' => \MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppAuthenticatable::class,
 ];
