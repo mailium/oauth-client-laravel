@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUninstallEvent;
-use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser;
+use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppAuthenticatable;
 use MailiumOauthClient\MailiumOauthClientLaravel\MailiumOauthClientMiddleware;
 
 Route::post('/uninstall', ['middleware' => [
@@ -12,14 +12,16 @@ Route::post('/uninstall', ['middleware' => [
     \MailiumOauthClient\MailiumOauthClientLaravel\MailiumOauthClientMiddleware::class
 ], function(Request $request) {
     // Get current user from the request
-    /** @var MailiumAppUser $user */
+    /** @var MailiumAppAuthenticatable $user */
     $user = $request->attributes->get('mailium_app_user');
 
-    // Delete user from database;
-    $user->delete();
-
     // Fire uninstall event
-    Event::fire(new MailiumAppUninstallEvent($user->accid));
+    Event::fire(new MailiumAppUninstallEvent($user));
+
+    // Delete user from database;
+    if ($user->exists) {
+        $user->delete();
+    }
 
     return response()->json([], 200);
 }])->name('mailium_app_uninstall');

@@ -3,12 +3,12 @@
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class MailiumAppUser
+ * Class MailiumAppAuthenticatable
  * @package MailiumOauthClient\MailiumOauthClientLaravel
  * @property string $accid
  * @property array $oauth_tokens
  */
-class MailiumAppUser extends Model
+class MailiumAppAuthenticatable extends Model
 {
 
     # ---------------------------------------------------------------------------------------------- Eloquent Attributes
@@ -18,14 +18,6 @@ class MailiumAppUser extends Model
      * @var string
      */
     protected $table = 'mailium_app_users';
-
-    /**
-     * The database columns used by the model.
-     *
-     * @var array
-     */
-    protected $columns = ['id', 'accid', 'oauth_tokens', 'created_at', 'updated_at'];
-
 
     /**
      * The attributes that are mass assignable.
@@ -79,7 +71,7 @@ class MailiumAppUser extends Model
     {
         $appUser = static::getByAccId($accId);
         if (is_null($appUser)) {
-            $appUser = new MailiumAppUser();
+            $appUser = new static();
             $appUser->accid = $accId;
             $appUser->oauth_tokens = new \stdClass();
             $appUser->save();
@@ -110,7 +102,7 @@ class MailiumAppUser extends Model
     {
         $appUser = static::getByAccId($resourceOwner->acc_id);
         if (is_null($appUser)) {
-            $appUser = new MailiumAppUser();
+            $appUser = new static();
             $appUser->accid = $resourceOwner->acc_id;
         }
         $appUser->oauth_tokens = $oauthTokens;

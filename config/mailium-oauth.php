@@ -9,6 +9,7 @@ return [
     | App credentails
     */
 
+    'app_id' => env('MAILIUM_APP_ID', ''),
     'client_id' => env('MAILIUM_APP_CLIENT_ID', ''),
     'client_secret' => env('MAILIUM_APP_CLIENT_SECRET', ''),
 
@@ -35,4 +36,12 @@ return [
     |
     */
     'app_type' => env('MAILIUM_APP_TYPE', 'embedded'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Eloquent model
+    |--------------------------------------------------------------------------
+    |
+    */
+    'model' => \MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppAuthenticatable::class,
 ];

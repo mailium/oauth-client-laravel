@@ -2,11 +2,10 @@
 
 use Closure;
 use Illuminate\Http\Request;
-use Auth;
 use MailiumOauthClient\MailiumOauthClient;
 use MailiumOauthClient\MailiumOauthClientLaravel;
-use MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser;
 use Mailium\API\MailiumAPI3;
+
 class MailiumOauthClientMiddleware
 {
     const VERSION = '1.0.30';
@@ -16,7 +15,14 @@ class MailiumOauthClientMiddleware
     protected $mailiumOauthClient;
 
     /**
-     * @var \MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppUser
+     * The Eloquent user model.
+     *
+     * @var string
+     */
+    protected $model;
+
+    /**
+     * @var \MailiumOauthClient\MailiumOauthClientLaravel\MailiumAppAuthenticatable
      */
     protected $user;
 
@@ -35,6 +41,8 @@ class MailiumOauthClientMiddleware
     public function __construct(MailiumOauthClient $mailiumOauthClient)
     {
         $this->mailiumOauthClient = $mailiumOauthClient;
+
+        $this->model = config('mailium-oauth.model');
 
         $this->request = new \stdClass();
 
@@ -86,7 +94,7 @@ class MailiumOauthClientMiddleware
             if ($this->request->authorizationState == $this->session->authorizationState) {
                 // Get access token
                 $this->mailiumOauthClient->authorize($this->request->authorizationCode);
-                $this->user = MailiumAppUser::getByAccId($this->request->accId);
+                $this->user = call_user_func([$this->model, 'getByAccId'], $this->request->accId);
 
                 $this->mailium_app_just_installed = true;
                 $request->session()->forget('mailium_authorization_state');
@@ -143,11 +151,11 @@ class MailiumOauthClientMiddleware
 
     protected function setUser($accId)
     {
-        $this->user = MailiumAppUser::getByAccId($accId);
+        $this->user = call_user_func([$this->model, 'getByAccId'], $accId);
         if ($this->user) {
             $this->mailiumOauthClient->setToken($this->user->getOauthTokens());
         } else {
-            $this->user = MailiumAppUser::createUser($accId);
+            $this->user = call_user_func([$this->model, 'createUser'], $accId);
         }
         return $this->user;
     }
