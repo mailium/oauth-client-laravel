@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/database": "5.*",
-        "mailium/oauth-client-php" :"1.0.22",
+        "mailium/oauth-client-php" :"1.0.23",
         "mailium/api-wrapper-php": "1.0.3"
     },
     "autoload": {
